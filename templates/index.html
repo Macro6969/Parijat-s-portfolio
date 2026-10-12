@@ -60,7 +60,7 @@
     >
       <div class="art-topline">
         <span>FIELD STUDY / 001</span
-        ><span class="live-label"><b></b> SYSTEM ONLINE</span>
+        ><span class="live-label"><b></b> CONCEPT VISUAL</span>
       </div>
       <div class="orbit orbit-one"></div>
       <div class="orbit orbit-two"></div>
@@ -165,8 +165,9 @@
           <h3>ANVESHAK<span class="title-period">.</span></h3>
           <p class="project-subtitle">Navigation beyond the signal.</p>
           <p class="project-description">
-            A camera-based autonomous navigation system for unmanned ground
-            vehicles, designed to explore navigation in GPS-denied environments.
+            A camera-based navigation project for unmanned ground vehicles,
+            exploring how visual perception, motion estimation, mapping, and
+            path planning can work together without relying on GPS.
           </p>
           <div class="tag-list">
             <span>Computer Vision</span><span>Visual Odometry</span
@@ -225,12 +226,12 @@
               <circle cx="374" cy="99" r="7" fill="#fff" />
             </svg>
             <div class="map-readout readout-one">
-              <small>LOCALIZATION</small><strong>0.982</strong
-              ><span>confidence</span>
+              <small>PIPELINE / 01</small><strong>PERCEPTION</strong
+              ><span>visual terrain cues</span>
             </div>
             <div class="map-readout readout-two">
-              <small>PLANNED PATH</small><strong>04.8 m/s</strong
-              ><span>estimated velocity</span>
+              <small>PIPELINE / 04</small><strong>PATH PLANNING</strong
+              ><span>A* search concept</span>
             </div>
           </div>
           <div class="visual-footer">
@@ -398,13 +399,13 @@
       <article class="project project-lab reveal">
         <div class="lab-copy">
           <div class="project-meta">
-            <span>03 — OPEN ENDED</span
+            <span>FIELD NOTES — OPEN ENDED</span
             ><span class="project-index">IN PROGRESS</span>
           </div>
           <h3>More experiments<span class="title-period">.</span></h3>
           <p class="project-description">
-            A space for prototypes, questions, and ideas still finding their
-            shape.
+            I’m continuing to explore applied AI, computer vision, and software
+            tools. New work will be added here as it becomes ready to share.
           </p>
         </div>
         <div class="terminal-card" aria-label="Abstract terminal illustration">
@@ -425,9 +426,22 @@
     </div>
   </section>
 
-  <!-- <section class="approach-section section-pad" id="approach"><div class="shell"><div class="section-heading reveal"><div><p class="section-kicker">02 / HOW I THINK</p><h2>From pixels<br>to <span class="serif-word">possibility.</span></h2></div><p class="section-intro">Autonomy is not a single model. It’s a chain of decisions, each one making the next more meaningful.</p></div>
-    <div class="pipeline reveal"><div class="pipeline-track" aria-hidden="true"><span></span><span></span><span></span><span></span></div><article class="pipeline-step"><div class="step-number">01</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9h5l2-3h10l2 3h5v16H4z"/><circle cx="16" cy="17" r="5"/><circle cx="16" cy="17" r="2"/></svg></div><h3>Perceive</h3><p>Interpret the scene. Separate traversable terrain from the world around it.</p><small>CAMERA · SEMANTIC UNDERSTANDING</small></article><article class="pipeline-step"><div class="step-number">02</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="3"/><path d="M16 2v5M16 25v5M2 16h5M25 16h5M7 7l4 4M21 21l4 4"/></svg></div><h3>Localize</h3><p>Estimate motion from visual cues and build an understanding of where the vehicle is.</p><small>VISUAL ODOMETRY · MOTION</small></article><article class="pipeline-step"><div class="step-number">03</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 7l8-3 8 3 8-3v21l-8 3-8-3-8 3zM12 4v21M20 7v21"/></svg></div><h3>Map</h3><p>Connect observations in a spatial model of the world around the vehicle.</p><small>SPATIAL MODEL · CONTEXT</small></article><article class="pipeline-step"><div class="step-number">04</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="6" cy="24" r="3"/><circle cx="16" cy="12" r="3"/><circle cx="26" cy="6" r="3"/><path d="M8 22l6-8M19 10l4-3M4 29h24"/></svg></div><h3>Navigate</h3><p>Plan a route through the mapped terrain and turn perception into directed movement.</p><small>A* SEARCH · PATH PLANNING</small></article></div>
-  </div></section> -->
+  <!-- <section class="approach-section section-pad" id="approach">
+    <div class="shell">
+      <div class="section-heading reveal">
+        <div><p class="section-kicker">02 / HOW I THINK</p><h2>From pixels<br />to <span class="serif-word">possibility.</span></h2></div>
+        <p class="section-intro">Autonomy is not a single model. It is a chain of decisions, where each stage provides context for the next.</p>
+      </div>
+      <div class="pipeline reveal">
+        <div class="pipeline-track" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <article class="pipeline-step"><div class="step-number">01</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 9h5l2-3h10l2 3h5v16H4z"/><circle cx="16" cy="17" r="5"/><circle cx="16" cy="17" r="2"/></svg></div><h3>Perceive</h3><p>Use camera imagery to interpret the scene and understand terrain.</p><small>CAMERA · SEMANTIC SEGMENTATION</small></article>
+        <article class="pipeline-step"><div class="step-number">02</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="3"/><path d="M16 2v5M16 25v5M2 16h5M25 16h5M7 7l4 4M21 21l4 4"/></svg></div><h3>Localize</h3><p>Estimate camera motion between frames to infer how the vehicle has moved.</p><small>VISUAL ODOMETRY · MOTION</small></article>
+        <article class="pipeline-step"><div class="step-number">03</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 7l8-3 8 3 8-3v21l-8 3-8-3-8 3zM12 4v21M20 7v21"/></svg></div><h3>Map</h3><p>Represent the trajectory and nearby environment in a local spatial view.</p><small>TRAJECTORY · LOCAL MAP</small></article>
+        <article class="pipeline-step"><div class="step-number">04</div><div class="step-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="6" cy="24" r="3"/><circle cx="16" cy="12" r="3"/><circle cx="26" cy="6" r="3"/><path d="M8 22l6-8M19 10l4-3M4 29h24"/></svg></div><h3>Plan</h3><p>Search for a route through the represented environment using a path-planning algorithm.</p><small>A* SEARCH · ROUTE PLANNING</small></article>
+      </div>
+      <p class="pipeline-disclaimer">Conceptual overview of the ANVESHAK pipeline; implementation details and performance depend on the current project build.</p>
+    </div>
+  </section> -->
 
   <section class="skills-section section-pad">
     <div class="shell skills-layout">
@@ -472,11 +486,20 @@
         <div class="skill-group">
           <div class="skill-group-head">
             <span>04</span>
-            <h3>Development</h3>
+            <h3>Web &amp; backend</h3>
           </div>
           <div class="skill-pills">
-            <span>Git</span><span>GitHub</span><span>Android Development</span
-            ><span>Flask</span>
+            <span>SQLite</span><span>HTML</span><span>CSS</span
+            ><span>JavaScript</span><span>Flask</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-head">
+            <span>05</span>
+            <h3>Developer tools</h3>
+          </div>
+          <div class="skill-pills">
+            <span>Git</span><span>GitHub</span><span>Android Development</span>
           </div>
         </div>
       </div>
@@ -500,8 +523,9 @@
         </p>
         <p>
           I enjoy experimenting with ideas and turning concepts into working
-          projects — especially when software has to understand, respond to, or
-          move through the real world.
+          prototypes. I’m especially interested in computer vision and systems
+          where software has to interpret the world rather than just process
+          text.
         </p>
         <p>
           My interests span computer vision, machine learning, autonomous

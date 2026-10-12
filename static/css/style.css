@@ -7,3 +7,10 @@
 .added-project-visual:hover img{filter:brightness(1.08)}
 @media(max-width:680px){.added-project-visual,.added-project-visual img{min-height:210px}}
 @media(prefers-reduced-motion:reduce){.added-project-visual img{transition:none}}
+
+/* Clarity and accessibility refinements */
+.pipeline-disclaimer{margin-top:28px;color:var(--quiet);font:9px/1.8 var(--mono);max-width:760px}
+.project-index{white-space:nowrap}
+:focus-visible{outline:2px solid var(--orchid);outline-offset:4px}
+::selection{background:#c99ae8;color:#160d20}
+@media(max-width:680px){.pipeline-disclaimer{font-size:8px;margin-top:22px}}

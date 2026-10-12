@@ -1,6 +1,6 @@
 # Parijat Majumdar — Portfolio
 
-A responsive personal portfolio built with Python, Flask, Jinja2, vanilla CSS, and vanilla JavaScript. The artwork is drawn with inline SVG and CSS; no image assets or frontend build tools are required.
+A responsive personal portfolio built with Python, Flask, Jinja2, CSS, and JavaScript. It features ANVESHAK, the Recursive Hackathon 2026 first-place result, a conceptual overview of the navigation pipeline, and project cards for other experiments. The visual diagrams are illustrative, not measured system output.
 
 ## Run locally
 
@@ -56,7 +56,7 @@ gunicorn --workers 2 --bind 0.0.0.0:${PORT:-8000} app:app
 
 Configure the hosting platform to forward public HTTPS traffic to the app process and set `PORT`, `FLASK_SECRET_KEY`, and any contact variables in its environment settings. Point `parijatmajumdar.xyz` and `www.parijatmajumdar.xyz` to the host using the DNS records provided by your hosting provider, then enable HTTPS there.
 
-The profile links and project list are configured at the top of `app.py`. Update those values when your links or projects change.
+The profile links and project list are configured at the top of `app.py`. Update those values when your links or projects change. Keep descriptions aligned with the current implementation, and avoid presenting illustrative diagrams as real-time outputs or measured results. The ANVESHAK pipeline section is a conceptual overview; it does not claim that every component is production-ready or validated.
 
 
 ## Adding a project image
