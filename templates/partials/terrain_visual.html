@@ -1,0 +1,109 @@
+{#
+  Reusable computer-vision / navigation visual (pure SVG + CSS).
+  Variables set by the caller with {% with %}:
+    vis_id      unique id so SVG ids do not clash when used twice
+    vis_title   label in the top-left of the frame
+    vis_labels  list of small labels under the frame
+#}
+<figure class="vis" data-reveal>
+  <div class="vis__frame">
+    <div class="vis__head mono">
+      <span class="accent">{{ vis_title }}</span>
+      <span class="vis__status" aria-hidden="true"></span>
+    </div>
+
+    <svg class="vis__svg" viewBox="0 0 600 400" role="img"
+         aria-labelledby="{{ vis_id }}-t {{ vis_id }}-d">
+      <title id="{{ vis_id }}-t">Autonomous navigation schematic</title>
+      <desc id="{{ vis_id }}-d">A perspective terrain grid with a segmented traversable region, two obstacles and a cyan planned trajectory from the vehicle to a goal. Schematic only, not live data.</desc>
+
+      <defs>
+        <linearGradient id="{{ vis_id }}-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#67E8F9" stop-opacity="0.02"/>
+          <stop offset="1" stop-color="#67E8F9" stop-opacity="0.16"/>
+        </linearGradient>
+        <linearGradient id="{{ vis_id }}-scan" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#67E8F9" stop-opacity="0"/>
+          <stop offset="1" stop-color="#67E8F9" stop-opacity="0.22"/>
+        </linearGradient>
+        <clipPath id="{{ vis_id }}-clip">
+          <polygon points="200,140 420,140 570,320 50,320"/>
+        </clipPath>
+      </defs>
+
+      <!-- Terrain plane -->
+      <polygon points="200,140 420,140 570,320 50,320" fill="url(#{{ vis_id }}-fill)" stroke="#2c4a52" stroke-width="1"/>
+
+      <!-- Perspective grid: rows get closer together toward the horizon -->
+      <g class="vis__grid" stroke="#67E8F9" stroke-opacity="0.16" stroke-width="1">
+        {% for i in range(1, 8) %}
+          {% set u = (i / 8) ** 1.5 %}
+          <line x1="{{ '%.1f'|format(200 - 150 * u) }}" y1="{{ '%.1f'|format(140 + 180 * u) }}"
+                x2="{{ '%.1f'|format(420 + 150 * u) }}" y2="{{ '%.1f'|format(140 + 180 * u) }}"/>
+        {% endfor %}
+        {% for j in range(1, 10) %}
+          {% set f = j / 10 %}
+          <line x1="{{ '%.1f'|format(200 + 220 * f) }}" y1="140"
+                x2="{{ '%.1f'|format(50 + 520 * f) }}" y2="320"/>
+        {% endfor %}
+      </g>
+
+      <!-- Semantic segmentation overlays (clipped to the terrain plane) -->
+      <g clip-path="url(#{{ vis_id }}-clip)">
+        <polygon class="vis__trav" points="262,320 340,320 392,232 372,158 312,158 318,232"
+                 fill="#67E8F9" fill-opacity="0.13" stroke="#67E8F9" stroke-opacity="0.45" stroke-dasharray="3 4"/>
+        <polygon points="120,312 214,312 236,238 188,204 150,250" fill="#9CA3AF" fill-opacity="0.14" stroke="#9CA3AF" stroke-opacity="0.45"/>
+        <polygon points="450,314 540,314 506,236 462,224" fill="#9CA3AF" fill-opacity="0.14" stroke="#9CA3AF" stroke-opacity="0.45"/>
+        <!-- scanning band -->
+        <rect class="vis__scan" x="40" y="140" width="540" height="46" fill="url(#{{ vis_id }}-scan)"/>
+      </g>
+
+      <!-- Obstacle detection reticle -->
+      <g fill="none" stroke="#67E8F9" stroke-opacity="0.55" stroke-width="1">
+        <path d="M144 206v-8h8M230 198h8v8M144 262v8h8M238 262v8h-8" transform="translate(-4 0)"/>
+      </g>
+      <text class="vis__label" x="136" y="190">OBSTACLE</text>
+
+      <!-- Trajectory -->
+      <path id="{{ vis_id }}-path" class="vis__traj" pathLength="1"
+            d="M300 312 C 292 276, 360 264, 342 222 S 318 176, 368 150"
+            fill="none" stroke="#67E8F9" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="326" cy="258" r="3" fill="#0B0D10" stroke="#67E8F9"/>
+      <circle cx="344" cy="206" r="3" fill="#0B0D10" stroke="#67E8F9"/>
+      <circle class="vis__goal-ring" cx="368" cy="150" r="7" fill="none" stroke="#67E8F9" stroke-opacity="0.6"/>
+      <circle cx="368" cy="150" r="3.5" fill="#67E8F9"/>
+      <circle cx="300" cy="312" r="6" fill="#0B0D10" stroke="#67E8F9" stroke-width="2"/>
+      <circle cx="300" cy="312" r="2.5" fill="#67E8F9"/>
+      <circle class="vis__rover" r="3" fill="#F3F4F6">
+        <animateMotion dur="5s" begin="2.4s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+          <mpath href="#{{ vis_id }}-path"/>
+        </animateMotion>
+      </circle>
+
+      <!-- Labels -->
+      <text class="vis__label" x="196" y="120">TRAVERSABLE REGION</text>
+      <text class="vis__label" x="404" y="256">PLANNED PATH</text>
+      <text class="vis__label" x="272" y="338">UGV / POSE</text>
+
+      <!-- Camera inset -->
+      <g>
+        <rect x="408" y="30" width="164" height="84" rx="6" fill="#0f131a" stroke="#27303D"/>
+        <text class="vis__label" x="420" y="48">CAMERA / INPUT</text>
+        <polyline points="420,98 446,66 470,86 498,60 522,80 560,62" fill="none" stroke="#9CA3AF" stroke-width="1.2"/>
+        <line x1="420" y1="100" x2="560" y2="100" stroke="#27303D"/>
+      </g>
+    </svg>
+
+    <div class="vis__telemetry mono" aria-hidden="true">
+      <span>X <b data-tele="x">+0.00</b></span>
+      <span>Y <b data-tele="y">+0.00</b></span>
+      <span>Z <b data-tele="z">0.00</b></span>
+      <span>HDG <b data-tele="h">000°</b></span>
+      <span class="vis__note">SCHEMATIC · SIMULATED DATA</span>
+    </div>
+  </div>
+
+  <figcaption class="vis__caps mono" aria-hidden="true">
+    {% for l in vis_labels %}<span>{{ l }}</span>{% endfor %}
+  </figcaption>
+</figure>

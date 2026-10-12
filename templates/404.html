@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Page not found — Parijat Majumdar{% endblock %}
+{% block content %}
+<section class="section not-found">
+  <div class="container">
+    <p class="eyebrow">404 / path not found</p>
+    <h1 class="display">This route<br>doesn't exist.</h1>
+    <p class="lead">The page you asked for isn't on this site. Head back to the main page.</p>
+    <a class="btn btn--primary" href="{{ url_for('index') }}">Back to home</a>
+  </div>
+</section>
+{% endblock %}
