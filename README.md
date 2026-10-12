@@ -1,74 +1,68 @@
-# Parijat Majumdar — Portfolio (Flask)
+# Parijat Majumdar — Portfolio
 
-A single-page portfolio built with Python Flask, HTML (Jinja2), vanilla CSS and vanilla JavaScript.
-No Node.js, npm or build step.
+A responsive personal portfolio built with Python, Flask, Jinja2, vanilla CSS, and vanilla JavaScript. The artwork is drawn with inline SVG and CSS; no image assets or frontend build tools are required.
 
-## Run it on Linux
+## Run locally
+
+Python 3.10 or newer is recommended.
 
 ```bash
-# 1. Go into the project folder
-cd parijat-portfolio
-
-# 2. Create and activate a virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# 3. Install dependencies
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
 pip install -r requirements.txt
-
-# 4. Start the app
 python app.py
 ```
 
-Open **http://127.0.0.1:5000** in your browser. Stop the server with `Ctrl + C`.
-Next time, just run `source venv/bin/activate` and `python app.py`.
+Open http://127.0.0.1:5000. Check the health endpoint at http://127.0.0.1:5000/health.
 
-> If `python3 -m venv` fails on Debian/Ubuntu: `sudo apt install python3-venv`.
+## Update links and add projects
 
-## Where to change things
-
-| What | Where |
-|---|---|
-| GitHub / LinkedIn / email | `CONTACT` in `app.py` (leave `None` to show "Not supplied") |
-| Skills, pipeline steps, focus areas | `SKILLS`, `PIPELINE`, `FOCUS_AREAS` in `app.py` |
-| Project text, hero copy, about text | `templates/index.html` |
-| Colors, fonts, spacing | CSS variables at the top of `static/css/style.css` |
-| Navigation visual (terrain, path) | `templates/partials/terrain_visual.html` |
-
-Example, in `app.py`:
+Open `app.py`. At the top, edit the `PROFILE` dictionary:
 
 ```python
-CONTACT = {
-    "github": "https://github.com/your-username",
-    "linkedin": "https://www.linkedin.com/in/your-profile",
+PROFILE = {
+    "name": "Parijat Majumdar",
+    "domain": "parijatmajumdar.xyz",
+    "github": "https://github.com/Macro6969",
+    "linkedin": "https://www.linkedin.com/in/your-profile/",
     "email": "you@example.com",
 }
 ```
 
-## Structure
+To hide LinkedIn or email until you are ready, set that value to an empty string (`""`).
 
-```
-parijat-portfolio/
-├── app.py                      Flask app + editable content
-├── requirements.txt
-├── templates/
-│   ├── base.html               header, footer, fonts
-│   ├── index.html              all sections
-│   ├── 404.html
-│   └── partials/terrain_visual.html   reusable SVG visual
-└── static/
-    ├── css/style.css
-    ├── js/script.js
-    └── images/favicon.svg
+To add a project, add another dictionary to the `PROJECTS` list in `app.py`:
+
+```python
+{
+    "name": "Project name",
+    "category": "AI / COMPUTER VISION",
+    "description": "A concise, accurate description of what the project does.",
+    "technologies": ["Python", "OpenCV"],
+    "url": "https://github.com/your-username/your-repository",
+},
 ```
 
-## Notes
+Use the exact repository URL and only claim features you have implemented. The website generates a project card for every entry in `PROJECTS`; no HTML changes are needed for ordinary project additions. ANVESHAK remains the featured project.
 
-- Fonts (Space Grotesk, Inter, JetBrains Mono) load from Google Fonts; system fonts are used if offline.
-- The telemetry numbers and visuals are labelled as simulated schematics, and the medical images are illustrative only.
-- Animations are disabled automatically for visitors who prefer reduced motion.
+## Production deployment
 
-## Deploying to parijatmajumdar.xyz
+Use a production WSGI server rather than Flask's local development server. For a Linux host that supports Python processes, install the requirements and run:
 
-Don't use `debug=True` in production. Run with a production server, e.g.
-`pip install gunicorn` then `gunicorn app:app`, behind Nginx or a host such as Render, Railway or PythonAnywhere.
+```bash
+gunicorn --workers 2 --bind 0.0.0.0:${PORT:-8000} app:app
+```
+
+Configure the hosting platform to forward public HTTPS traffic to the app process and set `PORT`, `FLASK_SECRET_KEY`, and any contact variables in its environment settings. Point `parijatmajumdar.xyz` and `www.parijatmajumdar.xyz` to the host using the DNS records provided by your hosting provider, then enable HTTPS there.
+
+The profile links and project list are configured at the top of `app.py`. Update those values when your links or projects change.
+
+
+## Adding a project image
+
+1. Put the image or SVG in `static/images/` (for example `static/images/my-project.svg`).
+2. Add `"image": "images/my-project.svg"` and an optional `"image_alt": "A short description"` to that project's dictionary in `PROJECTS` in `app.py`.
+3. Save and run the site. The template renders the image automatically. For deployment, commit and push the new image file along with the code.
+
+Use screenshots or diagrams that represent the actual implementation when possible. The included Agnirakshak and FloodGuard SVGs are clearly schematic concept illustrations, not real model outputs or evidence of project results.
